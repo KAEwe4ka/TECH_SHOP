@@ -2,7 +2,7 @@
 
 {% for cart in user_cart %}
 
-    Товар: {{ cart.user_product.product_name }}<br>
+Товар: {{ cart.user_product.product_name }}<br>
 Количество: {{ cart.user_product_quantity }}<br>
 Цена за 1 штуку: {{ cart.user_product.product_price }}<br>
 Итог: {% widthratio cart.user_product_quantity 1 cart.user_product.product_price %}

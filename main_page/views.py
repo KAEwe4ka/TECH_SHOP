@@ -89,14 +89,14 @@ def accept_order(request):
     user_cart = models.UserCart.objects.filter(user_id=request.user.id)
     admin_id = 650245882
     total = 0
+    message = 'новый заказ\n\n'
 
     for k in user_cart:
-        message = k
         message += f'{k.user_product.product_name} : {k.user_product_quantity}' \
                    f' шт : {round(k.user_product_quantity*k.user_product.product_price)} сум\n'
         total += k.user_product_quantity*k.user_product.product_price
-
-        message += f'НА общую сумму в {total} sum'
+        message += f'на общую сумму в {total} sum'
         bot.send_message(admin_id, message)
         models.UserCart.objects.filter(user_id=request.user.id).delete()
+
         return render(request, 'user_cart.html')
