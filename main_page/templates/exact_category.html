@@ -1,0 +1,9 @@
+<a href="/">На главную</a><hr >
+
+{% for product in category_products %}
+    <a href="/product/{{product.product_name}}">{{ product }}</a>
+    <br>
+
+{% endfor %}
+
+
