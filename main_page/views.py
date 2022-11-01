@@ -1,17 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import telebot
+from . import models
 
 bot = telebot.TeleBot('5732506869:AAGHKm66TrF6-ca20GnvqxIgOrDOPkl65LY')
-
-from . import models
 
 
 def home_page(request):
     get_all_category = models.Category.objects.all()
 
     return render(request, 'index.html',
-                  {'all_category': get_all_category})
+                  {'categories': get_all_category})
 
 
 # Получить все товары и вывод их на front
@@ -92,7 +91,7 @@ def accept_order(request):
     message = 'новый заказ\n\n'
 
     for k in user_cart:
-        message += f'{k.user_product.product_name} : {k.user_product_quantity}' \
+        message += f'id юзера - {models.UserCart.objects.filter(user_id=request.user.id)} : {k.user_product.product_name} : {k.user_product_quantity}' \
                    f' шт : {round(k.user_product_quantity*k.user_product.product_price)} сум\n'
         total += k.user_product_quantity*k.user_product.product_price
         message += f'на общую сумму в {total} sum'
